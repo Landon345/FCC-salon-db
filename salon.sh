@@ -59,14 +59,15 @@ LIST_SERVICES(){
   if [[ ! $SERVICE_ID_SELECTED =~ ^[0-9]+$ ]]
   then
     LIST_SERVICES "I could not find that service. What would you like today?"
-  fi
-  HAVE_SERVICE=$($PSQL "SELECT service_id FROM services WHERE service_id=$SERVICE_ID_SELECTED")
-
-  if [[ -z $HAVE_SERVICE ]]
-  then
-    LIST_SERVICES "I could not find that service. What would you like today?"
   else
-    MAIN_MENU
+    HAVE_SERVICE=$($PSQL "SELECT service_id FROM services WHERE service_id=$SERVICE_ID_SELECTED")
+
+    if [[ -z $HAVE_SERVICE ]]
+    then
+      LIST_SERVICES "I could not find that service. What would you like today?"
+    else
+      MAIN_MENU
+    fi
   fi
 
 }
